@@ -82,7 +82,9 @@ server.setNotFoundHandler((_, reply) => {
 
 const start = async () => {
   try {
-    await server.listen(process.env.PORT || 3000);
+    const bindAddr =
+      process.env.NODE_ENV === "production" ? "0.0.0.0" : "localhost";
+    await server.listen(process.env.PORT || 3000, bindAddr);
   } catch (err) {
     server.log.error(err);
     process.exit(1);
