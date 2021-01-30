@@ -43,15 +43,17 @@ const conditions: { [x in ComparisonRule]: CompareFn } & {
 type Condition = keyof typeof conditions;
 
 const ruleSchema = Joi.object({
-  field: Joi.string().required().messages({
+  field: Joi.string().exist().messages({
     "any.required": "rule.field is required",
+    "string.base": "rule.field should be a string",
   }),
   condition: Joi.valid(...Object.keys(conditions))
-    .required()
+    .exist()
     .messages({
       "any.only": "rule.condition must be one of eq, neq, gt, gte, or contains",
+      "any.required": "rule.condition is required",
     }),
-  condition_value: Joi.any().required().messages({
+  condition_value: Joi.any().exist().messages({
     "any.required": "rule.condition_value is required",
   }),
 }).messages({
@@ -142,15 +144,12 @@ function parseRequest(
       return { type: "invalid_schema", value: "Invalid JSON payload passed." };
     }
     switch (details?.type) {
-      case "object.base":
-      case "alternatives.types":
-      case "any.only":
-        return { type: "type_error", value: details.message };
       case "any.required": {
         return { type: "missing_required_field", value: details.message };
       }
+      default:
+        return { type: "type_error", value: details?.message || "" };
     }
-    return { type: "invalid_schema", value: "" };
   }
 
   return { type: "request", value: req as Request };
