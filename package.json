@@ -1,0 +1,35 @@
+{
+  "name": "flw-rule-validation",
+  "version": "0.0.1",
+  "description": "Submission for Flutterwave's Technical Assessment",
+  "main": "build/index.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/",
+    "test": "testyts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/barisere/flw-rule-validation.git"
+  },
+  "keywords": [
+    "Rule",
+    "validation"
+  ],
+  "author": "Barisere Jonathan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/barisere/flw-rule-validation/issues"
+  },
+  "homepage": "https://github.com/barisere/flw-rule-validation#readme",
+  "dependencies": {
+    "fastify": "^3.11.0",
+    "joi": "^17.3.0"
+  },
+  "devDependencies": {
+    "@types/node": "^14.14.22",
+    "prettier": "^2.2.1",
+    "testyts": "^1.1.0",
+    "typescript": "^4.1.3"
+  }
+}
