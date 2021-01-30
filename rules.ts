@@ -24,7 +24,7 @@ function containsValidator(
   element: any,
   index?: number
 ) {
-  if (index != null) {
+  if (index != null && !Number.isNaN(index)) {
     return value?.[index] === element;
   }
   return value.includes(element);
@@ -104,7 +104,7 @@ export function validate(req: unknown): ValidationResult {
     comparison = conditions[rule.condition](
       dataFieldValue,
       rule.condition_value,
-      +rule.field
+      Number.parseInt(rule.field)
     );
   } else {
     dataFieldValue = indexOn(data, rule.field);
